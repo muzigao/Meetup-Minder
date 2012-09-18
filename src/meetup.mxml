@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:meetupeventservice="services.meetupeventservice.*"
+			   xmlns:meetupevent="services.meetupevent.*"
+			   height="3000" backgroundColor="#EEEFEF">
+	<fx:Script>
+		<![CDATA[
+			import com.adobe.serializers.utility.TypeUtility;
+			
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			
+			import spark.events.TextOperationEvent;
+			
+			public var topic_str:String;
+			public var zip_str:String;
+			public var radius_str:String;
+
+			
+
+			protected function topic_tx_input_focusInHandler(event:FocusEvent):void
+			{
+				// TODO Auto-generated method stub
+				topic_tx_input.text="";
+			}			
+			protected function topic_tx_input_focusOutHandler(event:FocusEvent):void
+			{
+				// TODO Auto-generated method stub
+				topic_tx_input.text="Topic or interest";
+			}
+			
+			protected function zip_tx_input_focusInHandler(event:FocusEvent):void
+			{
+				// TODO Auto-generated method stub
+				zip_tx_input.text="";
+			}
+			
+			protected function zip_tx_input_focusOutHandler(event:FocusEvent):void
+			{
+				// TODO Auto-generated method stub
+				zip_tx_input.text="Zip";
+			}
+			
+			protected function search_bt_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				topic_str=topic_tx_input.text.toString();
+				zip_str=zip_tx_input.text.toString();
+				radius_str=radius_list.selectedItems.toString();
+				
+				EventGetResult.token = meetupevent.EventGet("3e95c695f3469d2e4a147a2e85f80",topic_str,zip_str,radius_str,"10","venue","plain");
+				
+			}			
+			protected function search_bt_mouseOverHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				search_bt.buttonMode=true;
+				search_bt.source="assets/search_bt1.png";
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:CallResponder id="EventGetResult"/>
+		<meetupevent:Meetupevent id="meetupevent"
+								 fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)"
+								 showBusyCursor="true"/>
+		
+	</fx:Declarations>
+
+	<s:BorderContainer x="0" y="0" width="100%" height="197"
+					   backgroundImage="@Embed('../image/topbg.jpg')"
+					   backgroundImageFillMode="repeat" borderVisible="false" fontWeight="bold">
+		<s:VGroup width="940" horizontalCenter="0" paddingLeft="10" paddingRight="10">
+			<s:Image source="assets/logo.png"></s:Image>
+			<s:BorderContainer width="100%" height="90" backgroundAlpha="0.8"
+							   backgroundImage="@Embed('../image/search_bg.png')"
+							   borderVisible="false">
+				<s:Label x="10" y="20" color="#FFFFFF" fontSize="14" fontWeight="bold"
+						 text="1.Topic or interest" verticalAlign="middle"/>
+				<s:Label x="340" y="20" color="#FFFFFF" fontSize="14" fontWeight="bold" text="2.ZIP"
+						 verticalAlign="middle"/>
+				<s:Label x="650" y="20" color="#FFFFFF" fontSize="14" fontWeight="bold"
+						 text="3.Distance" verticalAlign="middle"/>
+				
+				<s:TextInput id="topic_tx_input" x="12" y="47" width="260" height="24"
+							 borderVisible="false" color="#999999"
+							 focusIn="topic_tx_input_focusInHandler(event)" fontSize="14"
+							 fontWeight="bold" text=" ex.hiking,French"/>
+				<s:TextInput id="zip_tx_input" x="342" y="47" width="200" height="24"
+							 borderVisible="false" color="#999999"
+							 focusIn="zip_tx_input_focusInHandler(event)" fontSize="14"
+							 fontWeight="bold" text=" ex.10027">
+				</s:TextInput>
+				<s:DropDownList x="652" y="47" height="24" borderVisible="false" fontSize="14"
+								fontWeight="normal" prompt="Select one"
+								id="radius_list">
+					<s:ArrayList>
+						<fx:String>2.0</fx:String>
+						<fx:String>5.0</fx:String>
+						<fx:String>10.0</fx:String>
+						<fx:String>25.0</fx:String>
+						<fx:String>50.0</fx:String>
+						<fx:String>100.0</fx:String>
+					</s:ArrayList>
+				</s:DropDownList>
+				<s:Label x="770" y="52" color="#FFFFFF" fontSize="14" fontWeight="normal"
+						 text="miles" verticalAlign="middle"/>
+				<s:Image id="search_bt" x="850" y="30" click="search_bt_clickHandler(event)" 
+						 mouseOver="search_bt_mouseOverHandler(event)" source="assets/search_bt.png"
+						 buttonMode="true" toolTip="Search"/>
+			</s:BorderContainer>
+		</s:VGroup>
+	</s:BorderContainer>
+	<s:VGroup width="940" horizontalCenter="0" paddingLeft="10" paddingRight="10" y="197">
+		<s:List id="eventresult_list" width="920" height="2400" borderVisible="false"
+				chromeColor="#E5E5E5" contentBackgroundColor="#E5E5E5"				
+				focusColor="#E5E5E5" rollOverColor="#E5E5E5" selectionColor="#E5E5E5"
+				itemRenderer="EventRender">
+			<s:AsyncListView list="{TypeUtility.convertToCollection(EventGetResult.lastResult.items.item)}"/>
+			
+		</s:List>
+	</s:VGroup>
+
+	
+</s:Application>

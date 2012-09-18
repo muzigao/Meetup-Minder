@@ -1,0 +1,328 @@
+
+<model xmlns="http://ns.adobe.com/Fiber/1.0">
+  <annotation name="ActionScriptGeneration">
+    <item name="FullyQualifyReferences">true</item>
+  </annotation>
+  <service name="Meetupevent">
+    <annotation name="ActionScriptGeneration">
+      <item name="ServiceType">HTTPMultiService</item>
+      <item name="Package">services.meetupevent</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">HTTPService</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="DEFAULT_ENTITY_PACKAGE">valueObjects</item>
+      <item name="LINKED_FILE"></item>
+    </annotation>
+    <function name="EventGet" return-type="EventList">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="ActionScriptGeneration">
+        <item name="SerializationFilter">com.adobe.serializers.xml.XMLSerializationFilter</item>
+        <item name="method">GET</item>
+        <item name="url">https://api.meetup.com/2/open_events.xml</item>
+      </annotation>
+      <annotation name="url group">
+        <item name="completeURL">https://api.meetup.com/2/open_events.xml</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">head,items</item>
+      </annotation>
+      <annotation name="Properties">
+        <item name="xPath">/</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParamNames">key,topic,zip,radius,page,fields,text_format</item>
+        <item name="inputParams">string,string,string,string,string,string,string</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="key" type="string"/>
+      <parameter name="topic" type="string"/>
+      <parameter name="zip" type="string"/>
+      <parameter name="radius" type="string"/>
+      <parameter name="page" type="string"/>
+      <parameter name="fields" type="string"/>
+      <parameter name="text_format" type="string"/>
+    </function>
+  </service>
+  <entity name="Items">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Items</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Meetupevent</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="item" type="Item[]" required="true"/>
+  </entity>
+  <entity name="Head">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Head</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Meetupevent</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="url" type="string" required="true"/>
+    <property name="method" type="string" required="true"/>
+    <property name="description" type="string" required="true"/>
+    <property name="count" type="string" required="true"/>
+    <property name="updated" type="string" required="true"/>
+    <property name="lat" type="string" required="true"/>
+    <property name="next" type="string" required="true"/>
+    <property name="id" type="string" required="true"/>
+    <property name="link" type="string" required="true"/>
+    <property name="title" type="string" required="true"/>
+    <property name="total_count" type="string" required="true"/>
+    <property name="lon" type="string" required="true"/>
+  </entity>
+  <entity name="Venue">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Venue</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Meetupevent</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="address_2" type="string" required="true"/>
+    <property name="address_1" type="string" required="true"/>
+    <property name="state" type="string" required="true"/>
+    <property name="zip" type="string" required="true"/>
+    <property name="lat" type="string" required="true"/>
+    <property name="name" type="string" required="true"/>
+    <property name="city" type="string" required="true"/>
+    <property name="id" type="string" required="true"/>
+    <property name="country" type="string" required="true"/>
+    <property name="lon" type="string" required="true"/>
+  </entity>
+  <entity name="Item">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Item</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Meetupevent</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="maybe_rsvp_count" type="string" required="true"/>
+    <property name="distance" type="string" required="true"/>
+    <property name="venue" type="Venue" required="true"/>
+    <property name="status" type="string" required="true"/>
+    <property name="description" type="string" required="true"/>
+    <property name="group" type="Group" required="true"/>
+    <property name="yes_rsvp_count" type="string" required="true"/>
+    <property name="name" type="string" required="true"/>
+    <property name="utc_offset" type="string" required="true"/>
+    <property name="id" type="string" required="true"/>
+    <property name="time" type="string" required="true"/>
+    <property name="event_url" type="string" required="true"/>
+  </entity>
+  <entity name="EventList">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Results</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Meetupevent</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="EventGet">
+      <item name="propertySpecifier">head,items</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="head" type="Head" required="true"/>
+    <property name="items" type="Items" required="true"/>
+  </entity>
+  <entity name="Group">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Group</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Meetupevent</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="join_mode" type="string" required="true"/>
+    <property name="urlname" type="string" required="true"/>
+    <property name="id" type="string" required="true"/>
+    <property name="group_lat" type="string" required="true"/>
+    <property name="group_lon" type="string" required="true"/>
+    <property name="name" type="string" required="true"/>
+  </entity>
+  <service name="Meetuphoto">
+    <annotation name="ActionScriptGeneration">
+      <item name="ServiceType">HTTPMultiService</item>
+      <item name="Package">services.meetuphoto</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">HTTPService</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="DEFAULT_ENTITY_PACKAGE">valueObjects</item>
+      <item name="LINKED_FILE"></item>
+    </annotation>
+    <function name="PhotoGet" return-type="Photolist">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="ActionScriptGeneration">
+        <item name="SerializationFilter">com.adobe.serializers.json.JSONSerializationFilter</item>
+        <item name="method">GET</item>
+        <item name="url">https://api.meetup.com/photos</item>
+      </annotation>
+      <annotation name="url group">
+        <item name="completeURL">https://api.meetup.com/photos</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">results,meta</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParamNames">key,group_id,page</item>
+        <item name="inputParams">string,string,string</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="key" type="string"/>
+      <parameter name="group_id" type="string"/>
+      <parameter name="page" type="string"/>
+    </function>
+  </service>
+  <entity name="ResultPhoto">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">ResultPhoto</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Meetuphoto</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="GetPhoto">
+      <item name="propertySpecifier">results,meta</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <annotation name="PhotoGet">
+      <item name="propertySpecifier">results,meta</item>
+    </annotation>
+    <property name="results" type="Results[]"/>
+    <property name="meta" type="Meta"/>
+  </entity>
+  <entity name="Photolist">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Photolist</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Meetuphoto</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="PhotoGet">
+      <item name="propertySpecifier">results,meta</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="results" type="Results[]" required="true"/>
+    <property name="meta" type="Meta" required="true"/>
+  </entity>
+  <entity name="Meta">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Meta</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Meetuphoto</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="id" type="string"/>
+    <property name="title" type="string"/>
+    <property name="lon" type="string"/>
+    <property name="count" type="integer"/>
+    <property name="updated" type="string"/>
+    <property name="description" type="string"/>
+    <property name="next" type="string"/>
+    <property name="link" type="string"/>
+    <property name="method" type="string"/>
+    <property name="total_count" type="integer"/>
+    <property name="lat" type="string"/>
+    <property name="url" type="string"/>
+  </entity>
+  <entity name="Photourl">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Photourl</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Meetuphoto</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="PhotoGet">
+      <item name="propertySpecifier">results,meta</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="results" type="Results[]" required="true"/>
+    <property name="meta" type="Meta" required="true"/>
+  </entity>
+  <entity name="Results">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Results</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Meetuphoto</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="thumb_urls" type="string[]"/>
+    <property name="album_id" type="string"/>
+    <property name="photo_urls" type="string[]"/>
+    <property name="member_url" type="string"/>
+    <property name="albumtitle" type="string"/>
+    <property name="captions" type="string[]"/>
+    <property name="created" type="string"/>
+    <property name="photo_url" type="string"/>
+    <property name="link" type="string"/>
+    <property name="group_id" type="string"/>
+    <property name="descr" type="string"/>
+  </entity>
+</model>

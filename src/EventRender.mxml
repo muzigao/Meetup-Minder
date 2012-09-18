@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
+				xmlns:s="library://ns.adobe.com/flex/spark"
+				xmlns:mx="library://ns.adobe.com/flex/mx"
+				xmlns:meetuphoto="services.meetuphoto.*"
+				width="920" height="240" autoDrawBackground="true">
+	<fx:Script>
+		<![CDATA[
+			import com.adobe.serializers.utility.TypeUtility;
+			
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			
+			public var time_str:String;
+			public var groupid_str:String;
+			
+			protected function linkbutton1_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				var url:String=eventurl_str.text.toString();
+				var request:URLRequest=new URLRequest(url);
+				navigateToURL(request,"_blank"); 
+			}
+			
+			
+			
+			protected function list_creationCompleteHandler(event:FlexEvent):void
+			{
+				groupid_str=groupid_lb.text.toString();
+				PhotoGetResult.token = meetuphoto.PhotoGet(/*Enter value(s) for */ "3e95c695f3469d2e4a147a2e85f80", groupid_str, "1");
+			}
+			
+			protected function list_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				var url:String=eventurl_str.text.toString();
+				var request:URLRequest=new URLRequest(url);
+				navigateToURL(request,"_blank"); 
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:CallResponder id="PhotoGetResult"/>
+		<meetuphoto:Meetuphoto id="meetuphoto"
+							   fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)"
+							   showBusyCursor="true"/>
+	</fx:Declarations>
+
+	<s:List id="list" x="55" y="30" width="110" height="110" borderVisible="false"
+			click="list_clickHandler(event)" creationComplete="list_creationCompleteHandler(event)"
+			itemRenderer="PhotoRender" buttonMode="true" toolTip="Click me!">
+		<s:AsyncListView list="{TypeUtility.convertToCollection(PhotoGetResult.lastResult.results)}"/>
+
+	</s:List>
+	<s:Image x="212" y="40" source="assets/arrow.png">	
+	</s:Image>
+	<s:BorderContainer x="220" y="10" width="680" height="220" backgroundColor="#FFFFFF"
+					   borderVisible="false">
+		<s:Label x="20" y="150" text="{data.event_url}" id="eventurl_str" visible="false">
+		</s:Label>
+		<s:Label x="20" y="20" color="#538792" fontSize="16" fontWeight="bold" text="{data.name}">	
+		</s:Label>
+		<s:Label x="20" y="50" color="#ff1204" fontSize="14" fontWeight="bold" text="{data.status}!">
+		</s:Label>
+		<s:Label x="110" y="50" color="#666666" fontSize="14" fontStyle="italic" text="By {data.group.name}">
+		</s:Label>
+		<s:Label x="20" y="80" fontSize="14" color="#4a4a4a" text="Time: {data.time}">
+		</s:Label>
+		<s:Label x="20" y="110" fontSize="14" color="#4a4a4a" text="Venue: {data.venue.address_1}, {data.venue.city}">
+		</s:Label>
+		<s:Label x="20" y="140" fontSize="14" color="#4a4a4a" text="distance: {data.distance}">	
+		</s:Label>
+		<s:Label x="20" y="170" fontSize="14" color="#4a4a4a" text="{data.yes_rsvp_count} attending">
+		</s:Label>
+		<s:Label x="200" y="170" fontSize="14" color="#4a4a4a" text="{data.group.urlname}" id="groupid_lb" visible="false">	
+		</s:Label>
+		<mx:LinkButton x="550" y="180" label="&gt;&gt;view more"
+					   click="linkbutton1_clickHandler(event)" color="#4C818D" focusColor="#FFFFFF"
+					   fontSize="14" rollOverColor="#FFFFFF"
+					   selectionColor="#FFFFFF"/>
+		
+	</s:BorderContainer>
+	
+
+		
+	
+	
+</s:ItemRenderer>
